@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:transaction_app/models/transaction.dart';
+import 'package:transaction_app/widgets/chart.dart';
 import 'package:transaction_app/widgets/new_transaction.dart';
 import 'package:transaction_app/widgets/transaction_list.dart';
 
@@ -23,6 +24,16 @@ class _HomePageState extends State<HomePage> {
     //   date: DateTime.now(),
     // ),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((transaction) {
+      return transaction.date.isAfter(
+        DateTime.now().subtract(
+          const Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
 
   void addNewTransaction(String txtitle, int txamount) {
     final newTransaction = Transaction(
@@ -82,19 +93,7 @@ class _HomePageState extends State<HomePage> {
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: [
-              // Container(
-              //   margin: const EdgeInsets.all(
-              //     8,
-              //   ),
-              //   height: 50,
-              //   width: double.infinity,
-              //   decoration: BoxDecoration(
-              //     color: Theme.of(context).colorScheme.primary,
-              //     borderRadius: BorderRadius.circular(
-              //       5,
-              //     ),
-              //   ),
-              // ),
+              Chart(_recentTransactions),
               TransactionList(_transactions),
             ],
           ),
