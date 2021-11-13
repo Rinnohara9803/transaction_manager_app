@@ -10,18 +10,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Transaction> _transactions = [
-    Transaction(
-      id: 'rino9803',
-      title: 'Private Purpose',
-      amount: 40,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 'rino9802',
-      title: 'School Fee Payment',
-      amount: 29,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 'rino9803',
+    //   title: 'Private Purpose',
+    //   amount: 40,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 'rino9802',
+    //   title: 'School Fee Payment',
+    //   amount: 29,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void addNewTransaction(String txtitle, int txamount) {
@@ -62,7 +62,9 @@ class _HomePageState extends State<HomePage> {
         ),
         appBar: AppBar(
           title: const Center(
-            child: Text('Transaction Application'),
+            child: Text(
+              'Transaction Application',
+            ),
           ),
           actions: [
             IconButton(
@@ -80,19 +82,19 @@ class _HomePageState extends State<HomePage> {
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: [
-              Container(
-                margin: const EdgeInsets.all(
-                  8,
-                ),
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(
-                    5,
-                  ),
-                ),
-              ),
+              // Container(
+              //   margin: const EdgeInsets.all(
+              //     8,
+              //   ),
+              //   height: 50,
+              //   width: double.infinity,
+              //   decoration: BoxDecoration(
+              //     color: Theme.of(context).colorScheme.primary,
+              //     borderRadius: BorderRadius.circular(
+              //       5,
+              //     ),
+              //   ),
+              // ),
               TransactionList(_transactions),
             ],
           ),
