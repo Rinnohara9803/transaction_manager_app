@@ -35,12 +35,13 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
-  void addNewTransaction(String txtitle, int txamount) {
+  void addNewTransaction(
+      String txid, String txtitle, int txamount, DateTime txDate) {
     final newTransaction = Transaction(
-      id: 'rino9803',
+      id: txid,
       title: txtitle,
       amount: txamount,
-      date: DateTime.now(),
+      date: txDate,
     );
 
     setState(() {
@@ -48,6 +49,14 @@ class _HomePageState extends State<HomePage> {
     });
 
     Navigator.pop(context);
+  }
+
+  void deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tx) {
+        return tx.id == id;
+      });
+    });
   }
 
   void startAddNewTransaction(BuildContext theContext) {
@@ -94,7 +103,7 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             children: [
               Chart(_recentTransactions),
-              TransactionList(_transactions),
+              TransactionList(_transactions, deleteTransaction),
             ],
           ),
         ),

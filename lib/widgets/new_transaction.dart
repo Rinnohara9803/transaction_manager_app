@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   // const NewTransaction({Key? key}) : super(key: key);
 
   final Function addTransaction;
@@ -8,26 +9,50 @@ class NewTransaction extends StatelessWidget {
   NewTransaction(this.addTransaction);
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController titleController = TextEditingController();
-    TextEditingController amountController = TextEditingController();
+  State<NewTransaction> createState() => _NewTransactionState();
+}
 
-    void submitData() {
-      final titleText = titleController.text;
-      var amount = int.tryParse(amountController.text) ?? 0;
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+  DateTime? selectedDate;
 
-      if (titleText.isEmpty || amount <= 0) {
+  void submitData() {
+    final titleText = titleController.text;
+    var amount = int.tryParse(amountController.text) ?? 0;
+
+    if (titleText.isEmpty || amount <= 0 || selectedDate == null) {
+      return;
+    }
+    widget.addTransaction(
+      DateTime.now().toString(),
+      titleText,
+      amount,
+      selectedDate,
+    );
+  }
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
         return;
       }
-      addTransaction(
-        titleText,
-        amount,
-      );
-    }
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    });
+  }
 
-    return Container(
-      height: 500,
-      child: Card(
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        height: 500,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -52,6 +77,36 @@ class NewTransaction extends StatelessWidget {
                 onSubmitted: (_) {
                   submitData();
                 },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      selectedDate == null
+                          ? 'No Date Chosen!!!'
+                          : DateFormat.yMd().format(
+                              selectedDate!,
+                            ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    TextButton(
+                      onPressed: _presentDatePicker,
+                      child: const Text(
+                        'Choose Date',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 10,
