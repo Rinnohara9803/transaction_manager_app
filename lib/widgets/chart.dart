@@ -6,7 +6,7 @@ import 'package:transaction_app/widgets/chart_bars.dart';
 class Chart extends StatelessWidget {
   // const Chart({Key? key}) : super(key: key);
 
-  final List<Transaction> recentTransactions;
+  final List<Transactiona> recentTransactions;
 
   Chart(this.recentTransactions);
 

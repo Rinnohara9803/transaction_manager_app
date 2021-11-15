@@ -2,30 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'screens/home_page.dart';
 
-// import 'package:path/path.dart';
-// import 'package:sqflite/sqflite.dart';
-
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // final transactionDatabase = openDatabase(
-  //   join(
-  //     await getDatabasesPath(),
-  //     'doggie_database.db',
-  //   ),
-  //   onCreate: (db, version) {
-  //     return db.execute(
-  //       'CREATE TABLE transactions(id DATETIME PRIMARY KEY, title TEXT, amount INTEGER, date DATETIME)',
-  //     );
-  //   },
-  //   version: 1,
-  // );
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

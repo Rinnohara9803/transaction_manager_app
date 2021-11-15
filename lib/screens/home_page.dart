@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:transaction_app/models/transaction.dart';
+import 'package:transaction_app/utils/database.dart';
 import 'package:transaction_app/widgets/chart.dart';
 import 'package:transaction_app/widgets/new_transaction.dart';
 import 'package:transaction_app/widgets/transaction_list.dart';
@@ -10,22 +11,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: 'rino9803',
-    //   title: 'Private Purpose',
-    //   amount: 40,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 'rino9802',
-    //   title: 'School Fee Payment',
-    //   amount: 29,
-    //   date: DateTime.now(),
-    // ),
-  ];
+  // List<Transactiona> get _transactions {
+  //   return DatabaseProvider.db.getTransactions();
+  // }
 
-  List<Transaction> get _recentTransactions {
+  List<Transactiona> _transactions = [];
+
+  List<Transactiona> get _recentTransactions {
     return _transactions.where((transaction) {
       return transaction.date.isAfter(
         DateTime.now().subtract(
@@ -36,8 +28,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   void addNewTransaction(
-      String txid, String txtitle, int txamount, DateTime txDate) {
-    final newTransaction = Transaction(
+    String txid,
+    String txtitle,
+    int txamount,
+    DateTime txDate,
+  ) {
+    var theNewTransaction = Transactiona(
       id: txid,
       title: txtitle,
       amount: txamount,
@@ -45,7 +41,7 @@ class _HomePageState extends State<HomePage> {
     );
 
     setState(() {
-      _transactions.add(newTransaction);
+      _transactions.add(theNewTransaction);
     });
 
     Navigator.pop(context);
